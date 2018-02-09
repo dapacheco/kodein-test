@@ -11,10 +11,10 @@ interface GreeterView {
 
 class GreetPresenter(val view: GreeterView,
                      private val service: MessageService,
-                     private val persistenceService: PersistenceService) {
+                     val persistenceService: PersistenceService) {
 
     fun resume() {
-        Log.e("MainPresenter", "Instance is $this - $view")
+        Log.e("GreetPresenter", "Instance is $this - $view - $persistenceService")
         view.setGreeting("${service.getMessage()} - ${persistenceService.getValueFromStore()}" )
     }
 

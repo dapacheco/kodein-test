@@ -1,10 +1,12 @@
 package com.davepacheco.kodein.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.davepacheco.kodein.R
 import com.davepacheco.kodein.services.GoodByeMessageService
 import com.davepacheco.kodein.services.MessageService
+import com.davepacheco.kodein.services.PersistenceService
 import com.github.salomonbrys.kodein.*
 import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,6 +16,7 @@ class SecondActivity : KodeinAppCompatActivity(), GreeterView {
 
     private val presenter: GreetPresenter by with(this).instance()
     private val perActivityHelper: PerActivityHelper by with(this).instance()
+    private val persistenceService: PersistenceService by with(this).instance()
 
     override fun provideOverridingModule() = Kodein.Module {
         bind<MessageService>(overrides = true) with singleton { GoodByeMessageService() }
@@ -35,6 +38,7 @@ class SecondActivity : KodeinAppCompatActivity(), GreeterView {
         presenter.setName("test")
         presenter.resume()
         perActivityHelper.somethingPerActivity()
+        Log.e("SecondActivity", "Instance is $persistenceService - ${presenter.persistenceService}")
     }
 }
 
